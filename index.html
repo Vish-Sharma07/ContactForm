@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form class="contact-form" novalidate>
+        <h1>Contact Us</h1>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name <span>*</span></label>
+            <input type="text" id="firstName" required aria-required="true" />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name <span>*</span></label>
+            <input type="text" id="lastName" required aria-required="true" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span>*</span></label>
+          <input type="email" id="email" required aria-required="true" />
+        </div>
+
+        <div class="form-group">
+          <label>Query Type <span>*</span></label>
+          <div class="radio-options">
+            <label class="radio-box" tabindex="0">
+              <input type="radio" name="query" required />
+              <span>General Enquiry</span>
+            </label>
+            <label class="radio-box" tabindex="0">
+              <input type="radio" name="query" required />
+              <span>Support Request</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message <span>*</span></label>
+          <textarea id="message" rows="4" required aria-required="true"></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="consent" required />
+            <span>I consent to being contacted by the team <span>*</span></span>
+          </label>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      document.querySelector('.contact-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+        const consent = document.getElementById('consent');
+        const radios = document.querySelectorAll('input[name="query"]');
+
+        document.querySelectorAll('.error').forEach(el => el.remove());
+
+        let isValid = true;
+
+        function showError(input, msg) {
+          const error = document.createElement('div');
+          error.className = 'error';
+          error.style.color = 'red';
+          error.style.fontSize = '0.875rem';
+          error.setAttribute('role', 'alert');
+          error.textContent = msg;
+          input.closest('.form-group')?.appendChild(error);
+          input.setAttribute('aria-invalid', 'true');
+          isValid = false;
+        }
+
+        if (!firstName.value.trim()) showError(firstName, 'First Name is required.');
+        if (!lastName.value.trim()) showError(lastName, 'Last Name is required.');
+        if (!email.value.trim()) {
+          showError(email, 'Email is required.');
+        } else if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+          showError(email, 'Please enter a valid email address.');
+        }
+
+        const isRadioChecked = Array.from(radios).some(r => r.checked);
+        if (!isRadioChecked) {
+          showError(radios[0], 'Please select a query type.');
+        }
+
+        if (!message.value.trim()) showError(message, 'Message is required.');
+        if (!consent.checked) showError(consent, 'You must consent to be contacted.');
+
+        if (isValid) {
+          showToast('Message Sent! Thanks for completing the form.');
+          document.querySelector('.contact-form').reset();
+        }
+      });
+
+      function showToast(message) {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.setAttribute('role', 'status');
+        toast.style.position = 'fixed';
+        toast.style.top = '1rem';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = '#007e64';
+        toast.style.color = '#fff';
+        toast.style.padding = '1rem 2rem';
+        toast.style.borderRadius = '8px';
+        toast.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+        toast.style.zIndex = '1000';
+        toast.style.fontSize = '1rem';
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 4000);
+      }
+    </script>
+  </body>
+</html>

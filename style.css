@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #e3f0e7;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+label span {
+  color: #0b735b;
+}
+
+input,
+textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #0b735b;
+  outline: none;
+}
+
+/* Radio Buttons */
+.radio-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.radio-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  flex: 1;
+  cursor: pointer;
+  transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+.radio-box input[type="radio"] {
+  accent-color: #007e64;
+}
+
+.radio-box:hover {
+  border-color: #007e64;
+}
+
+.radio-box input[type="radio"]:checked + span,
+.radio-box:has(input[type="radio"]:checked) {
+  border-color: #007e64;
+  background-color: #e6f4f1;
+}
+
+/* Checkbox */
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  background-color: #007e64;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #005f4b;
+}
+
+/* Error message */
+.error {
+  margin-top: 0.25rem;
+}
+
+/* Focus for accessibility */
+input:focus,
+textarea:focus,
+.radio-box:focus-within,
+.checkbox-group input:focus {
+  outline: 2px solid #007e64;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .radio-box {
+    flex: 100%;
+  }
+}
